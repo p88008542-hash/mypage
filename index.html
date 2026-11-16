@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- ✏️ 제목과 설명을 바꿔요 -->
+  <title>하루의 작은 집</title>
+  <meta name="description" content="귀여운 것을 만들고 기록하는 하루의 개인 홈페이지">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --sky: #fff3b8;
+      --paper: #fffdf0;
+      --blush: #ffeef0;
+      --ink: #3d1021;
+      --red: #e63946;
+      --pink: #ffc2c9;
+      --mint: #c9f0dc;
+      --display: "Jua", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      --body: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--body);
+      font-size: 1.125rem;
+      line-height: 1.75;
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    a { color: inherit; }
+
+    :focus-visible {
+      outline: 3px solid var(--red);
+      outline-offset: 3px;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--display);
+      font-weight: 400;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    /* ---------- 첫 화면 ---------- */
+    .hero {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      background: var(--sky);
+    }
+
+    .stage {
+      position: relative;
+      flex: 1;
+      min-height: 52vh;
+      min-height: 52svh;
+    }
+
+    #heart {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hero-text {
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 8px 24px 28px;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.4rem, 8vw, 4.4rem);
+    }
+
+    .hero-text p {
+      margin: 8px 0 20px;
+      max-width: 34em;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav a {
+      display: inline-block;
+      padding: 6px 18px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--paper);
+      font-family: var(--display);
+      text-decoration: none;
+    }
+
+    .nav a:hover { background: var(--pink); }
+
+    .wave {
+      display: block;
+      width: 100%;
+      height: 44px;
+      background: var(--sky);
+      margin-bottom: -1px;
+    }
+
+    /* ---------- 섹션 ---------- */
+    section {
+      padding: 72px 24px;
+    }
+
+    .inner {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    section h2 {
+      font-size: clamp(1.9rem, 5vw, 2.6rem);
+      margin-bottom: 28px;
+    }
+
+    #works { background: var(--blush); }
+    #contact { background: var(--sky); }
+
+    /* 소개 */
+    .about {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .about p { margin: 0 0 1em; max-width: 34em; }
+
+    .about h3 {
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .chips li {
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-family: var(--display);
+      background: var(--sky);
+    }
+
+    .chips li:nth-child(3n + 2) { background: var(--pink); }
+    .chips li:nth-child(3n) { background: var(--mint); }
+
+    /* 만든 것들 */
+    .works {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .work {
+      padding: 26px 24px 28px;
+      border: 2px solid var(--ink);
+      border-radius: 24px;
+      background: var(--sky);
+    }
+
+    .work:nth-child(2) { background: var(--mint); transform: rotate(1deg); }
+    .work:nth-child(3) { background: var(--pink); transform: rotate(-1deg); }
+    .work:nth-child(1) { transform: rotate(-1.2deg); }
+
+    .work h3 { font-size: 1.5rem; margin-bottom: 8px; }
+    .work p { margin: 0; }
+
+    /* 연락처 */
+    .contact p { margin: 0 0 24px; max-width: 34em; }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .links a {
+      display: inline-block;
+      padding: 10px 24px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--display);
+      font-size: 1.15rem;
+      text-decoration: none;
+    }
+
+    .links a:hover { background: var(--red); }
+
+    /* 글 목록 */
+    .posts {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .posts li {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 20px;
+      padding: 16px 0;
+      border-bottom: 2px dashed rgba(61, 16, 33, 0.28);
+    }
+
+    .posts time { flex: 0 0 7.5em; opacity: 0.75; }
+    .posts .title { font-family: var(--display); font-size: 1.3rem; }
+
+    /* 맨 아래 */
+    footer {
+      padding: 36px 24px 48px;
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 1rem;
+    }
+
+    footer .inner p { margin: 0 0 6px; }
+
+    @media (max-width: 720px) {
+      .about { grid-template-columns: 1fr; gap: 28px; }
+      section { padding: 56px 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="stage">
+      <canvas id="heart" tabindex="0" role="button" aria-label="하트. 누르면 점프해요"></canvas>
+    </div>
+    <div class="hero-text">
+      <!-- ✏️ 이름과 한 줄 소개를 바꿔요 -->
+      <h1>안녕, 나는 하루야</h1>
+      <p>귀여운 것을 만들고 기록하는 작은 집이에요. 하트를 눌러 보세요!</p>
+      <ul class="nav">
+        <li><a href="#about">소개</a></li>
+        <li><a href="#works">만든 것들</a></li>
+        <li><a href="#contact">연락처</a></li>
+        <li><a href="#posts">글</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 30 C 180 0 360 0 540 25 S 900 60 1080 30 S 1300 5 1440 25 L1440 60 L0 60 Z" fill="#fffdf0"/>
+  </svg>
+
+  <main>
+    <section id="about">
+      <div class="inner">
+        <h2>나는 이런 사람이에요</h2>
+        <div class="about">
+          <div>
+            <!-- ✏️ 나를 소개하는 글로 바꿔요 -->
+            <p>안녕하세요, 하루예요. 귀여운 것, 코드로 움직이는 그림, 따뜻한 차를 좋아해요.</p>
+            <p>이 집은 이제 막 짓기 시작했어요. 조금씩 작품과 글을 채워 갈 거예요.</p>
+          </div>
+          <div>
+            <h3>좋아하는 것</h3>
+            <!-- ✏️ 좋아하는 것을 바꿔요 -->
+            <ul class="chips">
+              <li>고양이</li>
+              <li>밤 산책</li>
+              <li>딸기우유</li>
+              <li>웹 만들기</li>
+              <li>구름 구경</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="works">
+      <div class="inner">
+        <h2>만든 것들</h2>
+        <!-- ✏️ 작품 이름과 설명을 바꿔요 -->
+        <ul class="works">
+          <li class="work">
+            <h3>내 첫 홈페이지</h3>
+            <p>지금 보고 있는 이 집이에요. 하트는 Zdog로 움직여요.</p>
+          </li>
+          <li class="work">
+            <h3>두 번째 작품</h3>
+            <p>여기에 작품 설명을 적어요.</p>
+          </li>
+          <li class="work">
+            <h3>세 번째 작품</h3>
+            <p>여기에 작품 설명을 적어요.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="inner">
+        <h2>연락해요</h2>
+        <p>놀러 와서 반가워요. 아래에서 편한 곳으로 말을 걸어 주세요.</p>
+        <!-- ✏️ href 주소를 내 주소로 바꿔요 (GitHub는 이미 넣어 두었어요) -->
+        <ul class="links">
+          <li><a href="https://github.com/p88008542-hash" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="mailto:내이메일@example.com">이메일</a></li>
+          <li><a href="#" target="_blank" rel="noopener">인스타그램</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="posts">
+      <div class="inner">
+        <h2>쓴 글</h2>
+        <!-- ✏️ 날짜와 제목을 바꿔요. 글 페이지를 만들면 제목을 링크로 바꿀 수 있어요 -->
+        <ul class="posts">
+          <li><time datetime="2026-11-16">2026.11.16</time><span class="title">홈페이지를 처음 만든 날</span></li>
+          <li><time datetime="2026-11-20">2026.11.20</time><span class="title">두 번째 글이 들어갈 자리</span></li>
+          <li><time datetime="2026-11-27">2026.11.27</time><span class="title">세 번째 글이 들어갈 자리</span></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="inner">
+      <p>첫 화면의 하트는 Mustafa Enes의 CodePen 작품 “Zdog omg.lol dancing in the sky”에서 영감을 받아 새로 만들었어요.</p>
+      <p><a href="https://codepen.io/pavlovsk" target="_blank" rel="noopener">Mustafa Enes의 CodePen</a>, 그림은 <a href="https://zzz.dog" target="_blank" rel="noopener">Zdog</a>로 그렸어요.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/zdog@1.1.3/dist/zdog.dist.min.js"></script>
+  <script>
+    (function () {
+      var canvas = document.getElementById('heart');
+      var stage = canvas.parentElement;
+      if (!window.Zdog || !canvas.getContext) return;
+
+      var TAU = Zdog.TAU;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var SCENE = 78; // 화면 짧은 쪽에 들어오는 그림 크기
+
+      var RED = '#e63946';
+      var CHEEK = '#c1121f';
+      var INK = '#3d1021';
+      var S = 28;   // 하트 크기
+      var T = 5;    // 하트 두께
+      var o = S / (2 * Math.SQRT2);
+
+      var illo = new Zdog.Illustration({ element: canvas });
+      var scene = new Zdog.Group({ addTo: illo, updateSort: true });
+
+      /* ----- 하트 ----- */
+      var heart = new Zdog.Group({ addTo: scene, updateSort: true });
+      var body = new Zdog.Anchor({ addTo: heart, translate: { y: 2 } });
+
+      new Zdog.Box({
+        addTo: body, width: S, height: S, depth: T,
+        stroke: false, fill: true, color: RED,
+        rotate: { z: TAU / 8 }
+      });
+      [-1, 1].forEach(function (side) {
+        new Zdog.Cylinder({
+          addTo: body, diameter: S, length: T,
+          translate: { x: side * o, y: -o },
+          color: RED, backface: RED, stroke: false
+        });
+      });
+
+      var fz = T / 2 + 0.4; // 얼굴은 하트 앞면 위에
+      [-1, 1].forEach(function (side) {
+        new Zdog.Shape({
+          addTo: body, stroke: 8, color: CHEEK,
+          translate: { x: side * 13, y: -1, z: fz }
+        });
+        new Zdog.Shape({
+          addTo: body, stroke: 3.6, color: INK,
+          translate: { x: side * 5.5, y: -5, z: fz }
+        });
+      });
+      new Zdog.Shape({
+        addTo: body, closed: false, stroke: 1.8, color: INK,
+        translate: { z: fz },
+        path: [
+          { x: -4.2, y: 1.2 },
+          { arc: [{ x: 0, y: 6.4 }, { x: 4.2, y: 1.2 }] }
+        ]
+      });
+
+      /* ----- 구름 ----- */
+      function makeCloud(z, puffs) {
+        var g = new Zdog.Group({ addTo: scene, translate: { z: z } });
+        var parts = puffs.map(function (p) {
+          return new Zdog.Shape({
+            addTo: g, stroke: p[2], color: '#fff',
+            translate: { x: p[0], y: p[1] }
+          });
+        });
+        return { g: g, parts: parts, puffs: puffs, z: z };
+      }
+
+      var cloudA = makeCloud(-30, [[-9, 2, 11], [-3, -2, 14], [4, -1, 13], [10, 3, 10], [0, 4, 13]]);
+      var cloudB = makeCloud(30, [[-12, 0, 12], [-5, -3, 15], [3, -2, 16], [11, 1, 12], [-1, 4, 14]]);
+
+      /* ----- 크기 맞추기 ----- */
+      function fit() {
+        var w = stage.clientWidth, h = stage.clientHeight;
+        if (!w || !h) return;
+        illo.setSize(w, h);
+        illo.zoom = Math.min(w, h) / SCENE;
+        if (reduce) draw(0, -1);
+      }
+
+      /* ----- 그리기 ----- */
+      var jumpStart = -1;
+
+      function ease(p) { return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; }
+
+      function draw(t, now) {
+        var sway = Math.sin(t / 650);
+        var jy = 0, spin = 0;
+
+        if (jumpStart >= 0) {
+          var p = (now - jumpStart) / 900;
+          if (p >= 1) { jumpStart = -1; }
+          else { jy = -Math.sin(p * Math.PI) * 12; spin = ease(p) * TAU; }
+        }
+
+        heart.rotate.set({ y: sway * 0.42 + spin, z: sway * 0.09 });
+        heart.translate.set({ y: -Math.abs(Math.sin(t / 420)) * 2.4 + jy });
+
+        cloudA.g.translate.set({ x: -22 + Math.sin(t / 2000) * 3, y: -27, z: cloudA.z });
+        cloudB.g.translate.set({ x: 22 + Math.sin(t / 3000) * 4, y: 28, z: cloudB.z });
+
+        [cloudA, cloudB].forEach(function (c) {
+          c.parts.forEach(function (part, i) {
+            part.translate.y = c.puffs[i][1] + Math.sin(t / 900 + i) * 0.6;
+          });
+        });
+
+        illo.updateRenderGraph();
+      }
+
+      function frame(now) {
+        draw(now, now);
+        requestAnimationFrame(frame);
+      }
+
+      if ('ResizeObserver' in window) new ResizeObserver(fit).observe(stage);
+      else window.addEventListener('resize', fit);
+      fit();
+
+      if (reduce) {
+        draw(0, -1);
+      } else {
+        requestAnimationFrame(frame);
+        var jump = function () { if (jumpStart < 0) jumpStart = performance.now(); };
+        canvas.addEventListener('click', jump);
+        canvas.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); jump(); }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
